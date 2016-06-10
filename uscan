@@ -1,0 +1,29 @@
+#!/bin/bash
+
+WORKDIR=$(dirname $0)
+cd $WORKDIR
+
+function check_packages() {
+    for package in $(ls -1 $1);
+    do
+        current_version=$(check_archive ${package})
+        uscan --download --package ${package} \
+              --upstream-version ${current_version} \
+              --watchfile watch/${package} \
+              --destdir ./archives/
+    done
+}
+
+function check_archive() {
+    package=$1
+    last_archive=$(ls -1 archives/${package}_*.orig.* 2>/dev/null)
+    version=${last_archive#archives/${package}_}
+    version=${version%.orig.*}
+    if [ "X${version}" == "X" ];
+    then
+        version=0
+    fi
+    echo ${version}
+}
+
+check_packages $WORKDIR/watch/
