@@ -10,14 +10,14 @@ function check_packages() {
         uscan --download --package ${package} \
               --upstream-version ${current_version} \
               --watchfile watch/${package} \
-              --destdir ./archives/
+              --destdir ./downloads/
     done
 }
 
 function check_archive() {
     package=$1
-    last_archive=$(ls -1 archives/${package}_*.orig.* 2>/dev/null)
-    version=${last_archive#archives/${package}_}
+    last_archive=$(ls -1 downloads/${package}_*.orig.* 2>/dev/null)
+    version=${last_archive#downloads/${package}_}
     version=${version%.orig.*}
     if [ "X${version}" == "X" ];
     then

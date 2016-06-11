@@ -1,2 +1,2 @@
-archives/*
-!archives/.keepme
+downloads/*
+!downloads/.keepme
