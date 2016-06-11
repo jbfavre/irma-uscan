@@ -1,20 +1,10 @@
 #!/bin/bash
 
+OLD_PWD=$(pwd)
 WORKDIR=$(dirname $0)
 cd $WORKDIR
 
-function check_packages() {
-    for package in $(ls -1 $1);
-    do
-        current_version=$(check_archive ${package})
-        uscan --download --package ${package} \
-              --upstream-version ${current_version} \
-              --watchfile watch/${package} \
-              --destdir ./downloads/
-    done
-}
-
-function check_archive() {
+function check_version() {
     package=$1
     last_archive=$(ls -1 downloads/${package}_*.orig.* 2>/dev/null)
     version=${last_archive#downloads/${package}_}
@@ -26,4 +16,15 @@ function check_archive() {
     echo ${version}
 }
 
-check_packages $WORKDIR/watch/
+for package in $(ls -1 watch);
+do
+    current_version=$(check_version ${package})
+    uscan --download --package ${package} \
+          --upstream-version ${current_version} \
+          --watchfile watch/${package} \
+          --destdir ./downloads/
+done
+
+cd $PWD
+# Exit 0 is needed here to avoid using last uscan exit code.
+:
