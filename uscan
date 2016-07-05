@@ -6,19 +6,20 @@ cd $WORKDIR
 
 function check_version() {
     package=$1
-    last_archive=$(ls -1 downloads/${package}_*.orig.* 2>/dev/null)
+    last_archive=$(ls -1 downloads/${package}_*.orig.* | tail -1 2>/dev/null)
     version=${last_archive#downloads/${package}_}
     version=${version%.orig.*}
     if [ "X${version}" == "X" ];
     then
         version=0
     fi
-    echo ${version}
+    current_version=${version}
 }
 
 for package in $(ls -1 watch);
 do
-    current_version=$(check_version ${package})
+    echo ${package}
+    check_version ${package}
     uscan --download --package ${package} \
           --upstream-version ${current_version} \
           --watchfile watch/${package} \
