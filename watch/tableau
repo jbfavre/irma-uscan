@@ -1,0 +1,8 @@
+version=4
+opts="repack" \
+https://onlinehelp.tableau.com/current/api/sdk/en-us/SDK/tableau_sdk_installing.htm \
+  .*/tssoftware/Tableau-SDK-Linux-64Bit-([\d-]+).tar.gz debian
+
+opts="repack, component=sdk-python" \
+https://onlinehelp.tableau.com/current/api/sdk/en-us/SDK/tableau_sdk_installing.htm \
+  .*/tssoftware/Tableau-SDK-Python-Linux-64Bit-([\d-]+).tar.gz ignore uupdate
