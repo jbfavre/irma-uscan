@@ -1,0 +1,6 @@
+version=3
+
+opts=filenamemangle=s/.+\/v?([\d\.]*)\.tar\.gz/prometheus-\$1\.tar\.gz/,\
+uversionmangle=s/(\d)[_\.\-\+]?(RC|rc|pre|dev|beta|alpha)[.]?(\d*)$/\$1~\$2\$3/,\
+dversionmangle=s/\+ds\d*$//,\
+  https://github.com/prometheus/prometheus/tags .*/v?([\d\.]*)\.tar\.gz

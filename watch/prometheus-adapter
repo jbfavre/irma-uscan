@@ -1,0 +1,6 @@
+version=3
+
+opts=filenamemangle=s/.+\/v?([\d\.]*)\.tar\.gz/grafana-\$1\.tar\.gz/,\
+uversionmangle=s/(\d)[_\.\-\+]?(RC|rc|pre|dev|beta|alpha)[.]?(\d*)$/\$1~\$2\$3/,\
+dversionmangle=s/\+ds\d*$//,\
+  https://github.com/DirectXMan12/k8s-prometheus-adapter/releases .*/v?([\d\.]*)\.tar\.gz
