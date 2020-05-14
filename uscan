@@ -17,12 +17,11 @@ function check_version() {
 }
 
 function check_upstream() {
-    echo ${1}
+    echo "============================> ${1}"
     check_version ${1}
-    uscan --download --package=${1}\
+    uscan --no-download --package=${1}\
           --upstream-version=${current_version} \
-          --watchfile=watch/${1} \
-          --no-symlink --destdir=./downloads/ 2>/dev/null
+          --watchfile=watch/${1} 2>/dev/null
 }
 
 if [ $# -gt 0 ];
